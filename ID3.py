@@ -74,7 +74,7 @@ class ID3:
         for axis in range(feature_num):
             feature_list = sorted(dataset[:, axis])
             # 判断数组某一列数据类型是否是数值型，数值型number:包括int float bool complex
-            if type(feature_list[0]).__name__ == 'float' or type(feature_list[0]).__name__ == 'int':
+            if type(feature_list[0]).__name__.startswith('float')  or type(feature_list[0]).__name__.startswith('int'):
                 split_list = []
                 for i in range(len(feature_list)-1):
                     split_point = (feature_list[i]+feature_list[i+1])/2
@@ -124,5 +124,6 @@ class ID3:
             label_count[label] += 1
         return max(label_count)
 
-    def decision_tree_id3(self):
+    def fit(self):
+
         pass
