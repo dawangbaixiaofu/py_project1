@@ -13,8 +13,9 @@ import numpy as np
 
 
 class ID3:
-    def __int__(self):
-        pass
+    def __int__(self, dataset):
+        self.dataset = dataset[1:]
+        self.labels = dataset[0]
 
     def calc_entropy(self,dataset):
         entropy = 1
@@ -124,6 +125,26 @@ class ID3:
             label_count[label] += 1
         return max(label_count)
 
-    def fit(self):
+    # todo:成员变量最为成员函数的默认参数，不可以实现
+    def fit(self,dataset=self.dataset,labels=self.labels):
+        class_label = [example[-1] for example in dataset]
+        # np.ndarray has no attribute 'count' but list object has this attribute
+        if class_label.count(class_label[0]) == len(class_label):
+            return class_label[0]
+        if len(dataset[0]) == 1:
+            return self.majority_count(dataset=dataset)
 
-        pass
+        best_feature_index = self.choose_best_feature(dataset=dataset)
+        best_feature = labels[best_feature_index]
+        my_tree = {best_feature: {}}
+        # 字典对象可以接收基本数据类型
+        del labels[best_feature_index]
+
+        feature_values = [example[best_feature_index] for example in dataset]
+        unique_value = set(feature_values)
+
+        for value in unique_value:
+            sub_dataset = self.split_category_dataset(dataset=dataset,axis=best_feature_index,value=value)
+            my_tree[best_feature][value] = self.fit(sub_dataset,labels)
+
+        return my_tree

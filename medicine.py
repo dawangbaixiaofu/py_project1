@@ -6,8 +6,8 @@ class medicine():
         self.price = price
         self.pd = pd
         self.exp = exp
-    def get_price(self):
-        return self.price
+    def get_price(self,price=self.price):
+        return price
     def get_name(self):
         return self.name
     def get_gp(self):
