@@ -1,6 +1,5 @@
 import pymysql
 
-
 # 实现链接的单例模式
 class Connection(pymysql.connections.Connection):
     def __new__(cls, *args, **kwargs):
