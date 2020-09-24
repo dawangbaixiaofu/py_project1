@@ -3,7 +3,7 @@ import Single
 import time
 import datetime
 
-conn = Single.Connection(host='localhost', user='root', port=3306, password='729813', database='test')
+conn = Single.Connection(host='localhost', user='root', port=3306, password='******', database='test')
 cur = conn.cursor()
 schedule = sched.scheduler(timefunc=time.time, delayfunc=time.sleep)
 current_time = datetime.datetime.now()
